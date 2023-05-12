@@ -1,10 +1,13 @@
 <template>
   <div>
-    <div class="d-flex justify-start flex-wrap">
-      <v-checkbox v-model="headers[1].visible" label="Description" />
-      <v-checkbox v-model="headers[2].visible" label="Due Date" />
-      <v-checkbox v-model="headers[3].visible" label="Priority" />
-    </div>
+
+    <v-card width="360px" flat outlined class=" pa-3">
+      <v-card-title>Select what to see</v-card-title>
+      <v-checkbox hide-details="auto" class="" v-model="headers[1].visible" label="Description" />
+      <v-checkbox hide-details="auto" class="" v-model="headers[2].visible" label="Due Date" />
+      <v-checkbox hide-details="auto" class="" v-model="headers[3].visible" label="Priority" />
+    </v-card>
+
     <v-card min-width="100%" class="d-flex justify-center align-center">
       <v-btn color="primary" @click="dialog = true">
         add Todo
@@ -40,11 +43,11 @@
       </table>
     </v-card>
 
-    <div class="text-center">
-      <v-dialog v-model="dialog" width="auto">
-        <AddTodoForm @closeModal="dialog = false" />
-      </v-dialog>
-    </div>
+
+    <v-dialog v-model="dialog" width="auto">
+      <AddTodoForm @closeModal="dialog = false" />
+    </v-dialog>
+
 
   </div>
 </template>

@@ -9,17 +9,17 @@ const routes = [
       {
         path: '',
         name: 'Home',
-   
-        component: () => import( '@/views/Home.vue'),
+
+        component: () => import('@/views/HomePage.vue'),
+      },
+      {
+        path: "/todo",
+        name: "todo",
+
+        component: () =>
+          import("@/views/TodoView.vue"),
       },
     ],
-  },
-  {
-    path: "/todo",
-    name: "todo",
-   
-    component: () =>
-      import("@/views/TodoView.vue"),
   },
 ]
 
