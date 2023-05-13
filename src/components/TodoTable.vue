@@ -131,10 +131,10 @@ export default {
     function editItem(index) {
       EditDialog.value = true
       selectedTodo.value = todoItems[index]
-      console.log(selectedTodo.value.id);
     }
 
     function editTodo(todo) {
+      console.log(todo);
       const todoIndex = todos.value.findIndex(e => e.id === selectedTodo.value.id)
       if (todoIndex > -1) {
         todos.value.splice(todoIndex, 1, todo)
