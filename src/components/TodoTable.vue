@@ -138,7 +138,7 @@ export default {
     }
     function priorityFilter() {
       if (priority.value !== "All")
-        todos.value = todos.value.filter(e => e.priority === priority.value)
+        todos.value = todoItems.filter(e => e.priority === priority.value)
       else
         todos.value = todoItems
     }

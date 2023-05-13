@@ -10,7 +10,7 @@
           </li>
         </ul>
       </v-card>
-      <span v-else> There is no upcoming T odd</span>
+      <span class="ma-3" v-else> There is no upcoming Todo</span>
     </v-card>
     <div>
       <div class="todos-container mx-2 mx-md-10">
