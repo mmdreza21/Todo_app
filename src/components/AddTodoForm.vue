@@ -62,6 +62,7 @@ export default {
         async submit() {
             const store = TodoLists()
             const newTodo = {
+                id: this.form.id,
                 title: this.form.title,
                 description: this.form.description,
                 dueDate: new Date(this.form.dueDate).getTime(),
@@ -71,6 +72,7 @@ export default {
 
             if (this.editing) {
                 await store.editTodoItem(this.form.id, newTodo, +this.$route.params.id)
+                console.log(newTodo);
                 this.$emit('editTodo', newTodo)
             }
             else {

@@ -127,8 +127,15 @@ export default {
     function addTodo(todo) {
       todos.value.push(todo)
     }
+
+    function editItem(index) {
+      EditDialog.value = true
+      selectedTodo.value = todoItems[index]
+      console.log(selectedTodo.value.id);
+    }
+
     function editTodo(todo) {
-      const todoIndex = todos.value.findIndex(e => e.id === todo.id)
+      const todoIndex = todos.value.findIndex(e => e.id === selectedTodo.value.id)
       if (todoIndex > -1) {
         todos.value.splice(todoIndex, 1, todo)
       }
@@ -154,6 +161,7 @@ export default {
       deleteTodo,
       addTodo,
       editTodo,
+      editItem,
       priorityFilter,
       EditDialog,
       selectedTodo,
@@ -164,11 +172,7 @@ export default {
     sort(index) {
       this.headers[index].isHide = !this.headers[index].isHide;
     },
-    editItem(index) {
-      console.log(this.todos[index]);
-      this.EditDialog = true
-      this.selectedTodo = this.todos[index]
-    },
+
     showDisc(index) {
       this.desc = this.todos[index].description
       this.descDialog = true
