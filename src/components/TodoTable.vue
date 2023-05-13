@@ -100,7 +100,7 @@ import moment from 'moment';
 import { useRoute } from 'vue-router';
 export default {
   components: { AddTodoForm },
-  data() { return { moment: moment, priorities: ["All", 'Low', 'Medium', 'Hight'], desc: '', descDialog: false } },
+  data() { return { moment: moment, priorities: ["All", 'Low', 'Medium', 'High'], desc: '', descDialog: false } },
 
   setup() {
     const selectedTodo = ref({})

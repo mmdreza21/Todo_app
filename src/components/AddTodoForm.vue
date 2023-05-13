@@ -50,7 +50,7 @@ export default {
                 dueDate: '',
                 priority: 'Low',
             },
-            Priority: ['Low', 'Medium', 'Hight']
+            Priority: ['Low', 'Medium', 'High']
         };
 
     },
