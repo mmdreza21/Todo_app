@@ -1,50 +1,90 @@
 <template>
     <v-card height="588px" min-width="360px" class="pa-3 ">
-        <v-card-title class="d-flex py-1 text-gray justify-space-between align-center border-b">Add new Todo <v-btn flat
-                @click="closeModal" size="small" icon="mdi-window-close"></v-btn></v-card-title>
-        <form ref="form" @submit.prevent="addTodo">
-            <v-text-field required variant="outlined" class="my-2 rounded-lg" type="text" v-model="title"
+        <v-card-title class="d-flex py-1 text-gray justify-space-between align-center border-b">
+            {{ editing ? 'Edit' : 'Add New' }} Todo
+
+            <v-btn flat @click="closeModal" size="small" icon="mdi-window-close"></v-btn></v-card-title>
+        <form ref="form" @submit.prevent="submit">
+            <v-text-field required variant="outlined" class="my-2 rounded-lg" type="text" v-model="form.title"
                 label="Enter a Title" />
-            <VueDatePicker :required="true" position="center" class="my-2 rounded-lg" type="text" v-model="dueDate"
+            <VueDatePicker :required="true" position="center" class="my-2 rounded-lg" type="text" v-model="form.dueDate"
                 placeholder="Enter a Due Date" />
-            <v-textarea required variant="outlined" class="my-2 mt-4 rounded-lg" type="text" v-model="desc"
+            <v-textarea required variant="outlined" class="my-2 mt-4 rounded-lg" type="text" v-model="form.description"
                 label="Enter a Description" />
-            <v-select required variant="outlined" class="my-2 rounded-lg" :items="Priority" v-model="priority"
-                label="Select a Priority" />
-            <v-btn block color="success" class="mt-10 rounded-lg" type="submit">Add</v-btn>
+            <v-select required variant="outlined" class="my-2 rounded-lg" :items="Priority" v-model="form.priority"
+                label="Select a Priority">
+
+            </v-select>
+            <v-btn block color="success" class="mt-10 rounded-lg" type="submit">{{ editing ? 'Edit' : 'Add ' }}</v-btn>
         </form>
     </v-card>
 </template>
 
 <script>
-import { useAppStore } from '@/store/app';
+import { TodoLists } from '@/store/todoList';
 export default {
+    props: {
+        editing: {
+            type: Boolean,
+            default() {
+                return false
+            },
+        },
+        todo: {
+            type: Object,
+            default() {
+                return {
+                    title: '',
+                    description: '',
+                    dueDate: '',
+                    priority: 'Low',
+                }
+            }
+        }
+    },
     data() {
         return {
-
-            title: '',
-            desc: '',
-            dueDate: '',
-            priority: 'Low',
+            form: this.editing ? { ...this.todo } : {
+                title: '',
+                description: '',
+                dueDate: '',
+                priority: 'Low',
+            },
             Priority: ['Low', 'Medium', 'Hight']
         };
 
     },
+
     methods: {
         closeModal() {
             this.$emit('closeModal')
         },
-        addTodo() {
+        submit() {
+            const store = TodoLists()
+            const newTodo = {
+                title: this.form.title,
+                description: this.form.description,
+                dueDate: new Date(this.form.dueDate).getTime(),
+                priority: this.form.priority,
+                todoListId: +this.$route.params.id
+            }
 
-            const store = useAppStore()
-            store.addTodoAction({
-                title: this.title,
-                description: this.desc,
-                dueDate: new Date(this.dueDate).getTime(),
-                Priority: this.priority,
-            })
+            if (this.editing) {
+                const newTodoItems = store.editTodoItem(this.form.id, newTodo, +this.$route.params.id)
+                console.log(newTodoItems);
+                this.$emit('editTodo', newTodoItems)
+
+            }
+            else {
+                this.$emit('addTodo', newTodo)
+                store.addTodoItems(newTodo)
+            }
+
+
             this.closeModal()
+
         }
+
     }
 
 
