@@ -28,7 +28,7 @@
                   <h3 class="todo-title">{{ todo.title }}</h3>
                   <p class="todo-description">{{ todo.description }}</p>
                   <p class="todo-created-at">Created At: {{ moment(todo.createdAt).format('yyyy/DD/MM') }}</p>
-                </div>
+                </div>``
                 <!-- <v-btn size="large" icon="mdi-chevron-right"></v-btn> -->
               </div>
             </router-link>

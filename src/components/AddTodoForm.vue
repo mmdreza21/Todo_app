@@ -59,7 +59,7 @@ export default {
         closeModal() {
             this.$emit('closeModal')
         },
-        submit() {
+        async submit() {
             const store = TodoLists()
             const newTodo = {
                 title: this.form.title,
@@ -70,14 +70,13 @@ export default {
             }
 
             if (this.editing) {
-                const newTodoItems = store.editTodoItem(this.form.id, newTodo, +this.$route.params.id)
+                const newTodoItems = await store.editTodoItem(this.form.id, newTodo, +this.$route.params.id)
                 console.log(newTodoItems);
                 this.$emit('editTodo', newTodoItems)
-
             }
             else {
+                await store.addTodoItems(newTodo)
                 this.$emit('addTodo', newTodo)
-                store.addTodoItems(newTodo)
             }
 
 

@@ -49,12 +49,11 @@ export const TodoLists = defineStore('app', {
     },
 
 
-    editTodoItem(todoId, newTodo, todoListId,) {
-      console.log(todoId);
+    async editTodoItem(todoId, newTodo, todoListId) {
       const todoIndex = this.todoItems.findIndex(e => e.id === todoId)
       if (todoIndex > -1) {
-        this.todoItems.splice(todoIndex, 1, newTodo)
-        localStorage.todoItems = JSON.stringify(this.todoItems)
+        await this.todoItems.splice(todoIndex, 1, newTodo)
+        localStorage.todoItems = await JSON.stringify(this.todoItems)
         return this.todoItems.filter(e => e.todoListId === todoListId)
       }
 
