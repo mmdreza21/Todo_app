@@ -62,12 +62,9 @@ export default {
         async submit() {
             const store = TodoLists()
             const newTodo = {
-                id: this.form.id,
-                title: this.form.title,
-                description: this.form.description,
+                ...this.form,
                 dueDate: new Date(this.form.dueDate).getTime(),
-                priority: this.form.priority,
-                todoListId: +this.$route.params.id
+
             }
 
             if (this.editing) {
