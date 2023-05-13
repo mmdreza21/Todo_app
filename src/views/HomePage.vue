@@ -21,28 +21,28 @@
     </div>
 
     <v-dialog v-model="dialog" width="auto">
-      <AddTodoForm @closeModal="dialog = false" />
+      <AddTodoListForm @closeModal="dialog = false" />
     </v-dialog>
   </div>
 </template>
 
 <script>
-import { useAppStore } from '@/store/app';
+import { TodoLists } from '@/store/todoList';
 import { ref } from "vue";
 import moment from 'moment';
-import AddTodoForm from '@/components/AddTodoForm.vue';
+import AddTodoListForm from '@/components/AddTodoListForm.vue';
 export default {
   data() { return { moment: moment }; },
   setup() {
     const dialog = ref(false);
-    const store = useAppStore();
-    const todos = ref(store.getTodos);
+    const store = TodoLists();
+    const todos = ref(store.getTodoLists);
     return {
       todos,
       dialog,
     };
   },
-  components: { AddTodoForm }
+  components: { AddTodoListForm }
 };
 </script>
 
