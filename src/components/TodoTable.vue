@@ -128,7 +128,10 @@ export default {
       todos.value.push(todo)
     }
     function editTodo(todo) {
-      todos.value = todo
+      const todoIndex = todos.value.findIndex(e => e.id === todo.id)
+      if (todoIndex > -1) {
+        todos.value.splice(todoIndex, 1, todo)
+      }
     }
     function deleteTodo(index) {
       const todoNewState = store.deleteToDo(todos.value[index], todoListId)
