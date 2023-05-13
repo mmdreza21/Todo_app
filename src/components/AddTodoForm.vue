@@ -72,7 +72,8 @@ export default {
             if (this.editing) {
                 const newTodoItems = await store.editTodoItem(this.form.id, newTodo, +this.$route.params.id)
                 console.log(newTodoItems);
-                this.$emit('editTodo', newTodoItems)
+                if (newTodoItems)
+                    this.$emit('editTodo', newTodoItems)
             }
             else {
                 await store.addTodoItems(newTodo)
