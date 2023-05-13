@@ -2,7 +2,7 @@
   <div class="todos-page">
     <v-card max-width="344px" flat class="mx-5 border-md">
       <v-card-title>Upcoming TodoItems in 3 day`s </v-card-title>
-      <v-card max-width="344px" max-height="360px" flat class="mx-5 overflow-y-auto">
+      <v-card max-width="344px" max-height="200px" flat class="mx-5 overflow-y-auto" v-if="notifications.length">
         <ul class="notification-list">
           <li v-for="notification in notifications" :key="notification.description" class="notification">
             <span class="notification-description">{{ notification.title }}</span> -
@@ -10,6 +10,7 @@
           </li>
         </ul>
       </v-card>
+      <span v-else> There is no upcoming T odd</span>
     </v-card>
     <div>
       <div class="todos-container mx-2 mx-md-10">

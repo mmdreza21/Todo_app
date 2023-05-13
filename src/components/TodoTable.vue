@@ -13,8 +13,16 @@
         <v-select required variant="outlined" class="my-2 rounded-lg" :items="priorities" v-model="priority"
           label="Select a Priority" @update:modelValue="priorityFilter" />
       </v-card>
-
     </div>
+
+    <v-card flat>
+      <v-card-title>
+        Todo items for ( {{ todoList.find(e => e.id === +$route.params.id)?.title }} )
+
+      </v-card-title>
+
+    </v-card>
+
     <v-card flat min-width="100%" class="d-flex pa-2 justify-center align-center">
       <v-btn color="primary" @click="dialog = true">
         add Todo
@@ -101,6 +109,7 @@ export default {
     const EditDialog = ref(false)
     const priority = ref()
     const store = TodoLists();
+    const todoList = store.getTodoLists
     const todoListId = +route.params.id
     let todoItems = store.getTodoItems.filter(e => +e.todoListId === todoListId)
     const todos = ref(todoItems);
@@ -128,9 +137,8 @@ export default {
 
     }
     function priorityFilter() {
-
       if (priority.value !== "All")
-        todos.value = todos.value.filter(e => e.Priority === priority.value)
+        todos.value = todos.value.filter(e => e.priority === priority.value)
       else
         todos.value = todoItems
     }
@@ -145,7 +153,8 @@ export default {
       editTodo,
       priorityFilter,
       EditDialog,
-      selectedTodo
+      selectedTodo,
+      todoList
     };
   },
   methods: {
@@ -205,6 +214,7 @@ tbody tr:nth-child(even) {
 
 .description-content {
   margin-top: 10px;
+  min-width: 200px;
 }
 
 td {

@@ -1,6 +1,5 @@
 <template>
-  <div class="about">
-    <h1>This is your todo list</h1>
+  <div>
     <todo-table />
   </div>
 </template>
